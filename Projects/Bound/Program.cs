@@ -488,7 +488,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -507,7 +507,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -526,7 +526,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -545,7 +545,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -564,7 +564,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -583,7 +583,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -621,7 +621,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -640,7 +640,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -659,7 +659,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -678,7 +678,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -697,7 +697,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 		("""
 
 		            ╔═══════════════╗
@@ -716,7 +716,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-		""", TimeSpan.FromSeconds(.5)),
+		""", TimeSpan.FromSeconds(0.3)),
 	}),
 	#endregion
 ];
