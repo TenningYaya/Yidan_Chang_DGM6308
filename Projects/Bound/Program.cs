@@ -723,7 +723,7 @@ Exception? exception = null;
 
 try
 {
-	bool escape = false;
+	bool escape = false;//呆的像鸟一样
 	int lives = 100;
 	int frame = 0;
 	int levelIndex = 0;
