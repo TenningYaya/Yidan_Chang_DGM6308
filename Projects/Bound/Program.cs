@@ -493,7 +493,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -512,7 +516,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -531,7 +539,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -550,7 +562,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -569,7 +585,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -588,7 +608,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -626,7 +650,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -645,7 +673,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -664,7 +696,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -683,7 +719,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -702,7 +742,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -721,7 +765,11 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
+<<<<<<< HEAD
 		""", TimeSpan.FromSeconds(.3)),
+=======
+		""", TimeSpan.FromSeconds(0.3)),
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 	}),
 	#endregion
 ];
@@ -729,12 +777,19 @@ Exception? exception = null;
 // the main loop of the game,contains the important game logic and exception handling
 try
 {
+<<<<<<< HEAD
 	// Initialize game variables
 	bool escape = false; // to control game exit
 	int lives = 100; // Player's starting lives
 	int frame = 0; // Current animation frame index
 	int levelIndex = 0; // Current level index
 	// Get the first level's data and initialize player position
+=======
+	bool escape = false;//呆的像鸟一样
+	int lives = 100;
+	int frame = 0;
+	int levelIndex = 0;
+>>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 	((int Left, int Top) StartPosition, (string Map, TimeSpan Delay)[] Frames) level = levels[levelIndex];
 	(int Top, int Left) position = level.StartPosition;
 
