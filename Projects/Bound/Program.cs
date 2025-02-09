@@ -1,9 +1,10 @@
-﻿using System;
+﻿//Name of teammates: Yidan Chang, Yichi Qian, Zhuoran Song
+//New mechanics: We add a space bar for the user to jump forward 2 spaces. We changed level 3 to let the player use it.
+using System;
 using System.Text.RegularExpressions;
 
 // declare a nullable exception variable to store any errors during program execution
 Exception? exception = null;
-
 
 // Define an array of game levels,each level contains:
 // startPosition - player's initial position (Left,Top coordinates)
@@ -32,12 +33,9 @@ Exception? exception = null;
 		            ║       ║
 		            ║       ║
 		            ╚═══════╝
-		""", TimeSpan.FromSeconds(.1)), // a single map frame with 0.1 second delay 
+		""", TimeSpan.FromSeconds(.1)),
 	}),
 	#endregion
-    /*
-    **********************************************We change the LV2**********************************
-    */
 	#region level 01 
 	((15, 16),
 	new (string Map, TimeSpan Delay)[]
@@ -352,7 +350,6 @@ Exception? exception = null;
 		            ║         ║
 		            ╚═════════╝
 		""", TimeSpan.FromSeconds(.2)),
-//*************************************************************************************************************
         		("""
 
 		            ╔═════════╗
@@ -493,11 +490,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -516,11 +509,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -539,11 +528,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -562,11 +547,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -585,11 +566,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -608,11 +585,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -650,11 +623,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -673,11 +642,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -696,11 +661,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -719,11 +680,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -742,11 +699,7 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 		("""
 
 		            ╔═══════════════╗
@@ -765,31 +718,21 @@ Exception? exception = null;
 		            ║               ║
 		            ║               ║
 		            ╚═══════════════╝
-<<<<<<< HEAD
-		""", TimeSpan.FromSeconds(.3)),
-=======
 		""", TimeSpan.FromSeconds(0.3)),
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 	}),
 	#endregion
 ];
 
-// the main loop of the game,contains the important game logic and exception handling
+// the main loop of the game, contains the important game logic and exception handling
 try
 {
-<<<<<<< HEAD
 	// Initialize game variables
 	bool escape = false; // to control game exit
 	int lives = 100; // Player's starting lives
 	int frame = 0; // Current animation frame index
 	int levelIndex = 0; // Current level index
+
 	// Get the first level's data and initialize player position
-=======
-	bool escape = false;//呆的像鸟一样
-	int lives = 100;
-	int frame = 0;
-	int levelIndex = 0;
->>>>>>> 16c2a1916b84475b60187997e317f9e6189ed915
 	((int Left, int Top) StartPosition, (string Map, TimeSpan Delay)[] Frames) level = levels[levelIndex];
 	(int Top, int Left) position = level.StartPosition;
 
@@ -830,7 +773,6 @@ try
 			lastMovementKey = ConsoleKey.UpArrow;
 			position = levels[levelIndex].StartPosition;
 			lives--;
-
 			// Check for game over condition
 			if (lives <= 0)
 			{
@@ -851,30 +793,24 @@ try
 					case ConsoleKey.UpArrow:
 						lastMovementKey = ConsoleKey.UpArrow;
 						// Check if the space above is available for movement
-						if (map[position.Top - 1][position.Left] is ' ' or '@' or '#') 
+						if (map[position.Top - 1][position.Left] is ' ' or '@' or '#')
 						{
 							lastMovementKey = ConsoleKey.UpArrow; // Set last movement key to up
 							Console.SetCursorPosition(position.Left, position.Top + mapTop);
 							Console.Write(' '); // Clear current position
 							position.Top--; // Move player up
 						}
-						{
-							lastMovementKey = ConsoleKey.UpArrow;
-							Console.SetCursorPosition(position.Left, position.Top + mapTop);
-							Console.Write(' '); // Clear current position
-							position.Top--; // Move player up
-						}
 						break;
 
-					// Handle downward movement
+					// Handle downward movement	
 					case ConsoleKey.DownArrow:
 						lastMovementKey = ConsoleKey.DownArrow;
 						// Check if the space below is available
 						if (map[position.Top + 1][position.Left] is ' ' or '@' or '#')
 						{
 							Console.SetCursorPosition(position.Left, position.Top + mapTop);
-							Console.Write(' ');
-							position.Top++; //down
+							Console.Write(' '); // Clear current position
+							position.Top++; // Move player up
 						}
 						break;
 					case ConsoleKey.LeftArrow:
@@ -883,7 +819,7 @@ try
 						{
 							Console.SetCursorPosition(position.Left, position.Top + mapTop);
 							Console.Write(' ');
-							position.Left--; //left
+							position.Left--; //Left
 						}
 						break;
 					case ConsoleKey.RightArrow:
@@ -895,8 +831,8 @@ try
 							position.Left++; //right
 						}
 						break;
-
-						/*The jumping mechanism we added for the third level*/
+					//Here is the mechanics we add. We add a space bar that allows the user to
+					//jump forward 2 spaces. But it only allows the user to jump forward. 
 					case ConsoleKey.Spacebar:
 						lastMovementKey = ConsoleKey.UpArrow;
 						// Check if jumping space is available
@@ -949,24 +885,22 @@ try
 				}
 			}
 		}
-		frame = (frame + 1) % level.Frames.Length; // refresh the frame
+		frame = (frame + 1) % level.Frames.Length;
 	}
 
-	// something when the player presses the escape key,end the game
+	// when the player presses the escape key,end the game
 	if (escape)
 	{
 		return;
 	}
-
-	// the player wins the game
+// the player wins the game
 YouWin:
 	Console.Clear();
 	Console.WriteLine("You Win!");
 	Console.WriteLine("Press [enter] to continue...");
 	PressEnterToContinue();
 	return;
-
-	// the player loses the game
+// the player loses the game
 YouLose:
 	Console.Clear();
 	Console.WriteLine("You Lose!");
@@ -979,9 +913,9 @@ YouLose:
 		lastMovementKey switch
 		{
 			ConsoleKey.UpArrow    => '^', // display the player character as '^' when the player moves up
-			ConsoleKey.DownArrow  => 'v', // down
-			ConsoleKey.LeftArrow  => '<', // left
-			ConsoleKey.RightArrow => '>', // right
+			ConsoleKey.DownArrow  => 'v', //down
+			ConsoleKey.LeftArrow  => '<', //left
+			ConsoleKey.RightArrow => '>', //right
 			_ => throw new NotImplementedException(),
 		};
 
@@ -995,9 +929,10 @@ YouLose:
 			case ConsoleKey.Enter: break; // continue the game
 			case ConsoleKey.Escape: return; // exit the game
 			default: goto GetEnterOrEscape; // Loop for valid input
-		}
+		} 
 	}
 }
+
 // exception handling
 catch (Exception e)
 {
