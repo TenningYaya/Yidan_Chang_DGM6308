@@ -2,10 +2,11 @@
 
 public class Player
 {
-	public bool IsHuman { get; }
-	public PieceColor Color { get; }
+	public bool IsHuman { get; } // if the player is human
+	public PieceColor Color { get; } // the color of the player
 
-	public Player(bool isHuman, PieceColor color)
+	// Constructor for the player
+	public Player(bool isHuman, PieceColor color) 
 	{
 		IsHuman = isHuman;
 		Color = color;
