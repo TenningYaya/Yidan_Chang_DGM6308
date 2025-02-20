@@ -25,7 +25,7 @@ public class Game
 	}
 
 	// Perform a move
-	public void PerformMove(Move move)
+	public void PerformMove(Move move, Traps trap)
 	{
 		(move.PieceToMove.X, move.PieceToMove.Y) = move.To; // Set the piece to move to the position
 		if ((move.PieceToMove.Color is Black && move.To.Y is 7) ||
@@ -46,6 +46,11 @@ public class Game
 		{
 			Board.Aggressor = null; 
 			Turn = Turn is Black ? White : Black; // Set the turn to the opposite player
+		}
+
+		if(move.To == trap.currentTrapPosition) // Check if the move is on the trap
+		{
+			Board.Pieces.Remove(move.PieceToMove); // Remove the piece to move from the board
 		}
 		CheckForWinner(); // Check for the winner
 	}

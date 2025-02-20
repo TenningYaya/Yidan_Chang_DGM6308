@@ -122,7 +122,10 @@ void RunGameLoop(Game game)
 					if (move is not null &&
 						(game.Board.Aggressor is null || move.PieceToMove == game.Board.Aggressor)) // If the move is valid and the piece to move is equal to the aggressor or there is no aggressor
 					{
-						game.PerformMove(move); // Perform the move
+						game.PerformMove(move, trap); // Perform the move
+					}
+					if(to == trap.currentTrapPosition){
+
 					}
 				}
 			}
@@ -135,18 +138,18 @@ void RunGameLoop(Game game)
 			// If there are captures
 			if (captures.Count > 0)
 			{
-				game.PerformMove(captures[Random.Shared.Next(captures.Count)]); // Perform a random capture
+				game.PerformMove(captures[Random.Shared.Next(captures.Count)], trap); // Perform a random capture
 			}
 			// If there are no captures and there are no pieces that can be promoted
 			else if (!game.Board.Pieces.Any(piece => piece.Color == game.Turn && !piece.Promoted))
 			{
 				var (a, b) = game.Board.GetClosestRivalPieces(game.Turn); // Get the closest rival pieces
 				Move? priorityMove = moves.FirstOrDefault(move => move.PieceToMove == a && Board.IsTowards(move, b)); // Get the priority move
-				game.PerformMove(priorityMove ?? moves[Random.Shared.Next(moves.Count)]); // Perform the priority move or a random move
+				game.PerformMove(priorityMove ?? moves[Random.Shared.Next(moves.Count)], trap); // Perform the priority move or a random move
 			}
 			else
 			{
-				game.PerformMove(moves[Random.Shared.Next(moves.Count)]); // Perform a random move
+				game.PerformMove(moves[Random.Shared.Next(moves.Count)], trap); // Perform a random move
 			}
 		}
 	    // Render the game state
@@ -189,6 +192,9 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 	{
 		sb.Replace(" $ ", $"[{ToChar(game.Board[selection.Value.X, selection.Value.Y])}]"); // Replace the selection with the piece at the selection position
 	}
+	// if(trap is not null){
+	// 	sb.Replace(" X ", $"[{ToChar(game.Board[trap.currentTrapPosition.X, trap.currentTrapPosition.Y])}]");
+	// }
 	if (from is not null)
 	{
 		char fromChar = ToChar(game.Board[from.Value.X, from.Value.Y]); // Get the piece at the from position
@@ -218,6 +224,7 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 	char B(int x, int y) =>
 		(x, y) == selection ? '$' :
 		(x, y) == from ? '@' :
+		(x, y) == trap.currentTrapPosition ? 'X':
 		ToChar(game.Board[x, y]); 
 
 	// Method to convert piece to character
