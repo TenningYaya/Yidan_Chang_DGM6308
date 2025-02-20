@@ -52,6 +52,8 @@ Game ShowIntroScreenAndGetOption()
 	Console.WriteLine("  Moves are selected with the arrow keys. Use the [enter] button to select the");
 	Console.WriteLine("  from and to squares. Invalid moves are ignored.");
 	Console.WriteLine();
+	Console.WriteLine("   Steping on traps will cause this pieces to be removed.");
+	Console.WriteLine();
 	Console.WriteLine("  Press a number key to choose number of human players:");
 	Console.WriteLine("    [0] Black (computer) vs White (computer)");
 	Console.WriteLine("    [1] Black (human) vs White (computer)");
