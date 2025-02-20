@@ -1,12 +1,17 @@
-﻿Exception? exception = null; // Handle exceptions
+﻿using System.Security.Cryptography;
+
+Exception? exception = null; // Handle exceptions
 
 Encoding encoding = Console.OutputEncoding; // Set encoding instance
 Traps trap = new(); // Create a new trap instance
+Game game; // Create game and show intro screen
+Player currentPlayer;
 
 try
 {
 	Console.OutputEncoding = Encoding.UTF8; // Set encoding to UTF-8
-	Game game = ShowIntroScreenAndGetOption(); // Create game and show intro screen
+	game = ShowIntroScreenAndGetOption();
+	currentPlayer = game.Players.First(player => player.Color == game.Turn);
 	Console.Clear();
 	RunGameLoop(game); // Run main game loop
 	RenderGameState(game, promptPressKey: true);  // Render game state
@@ -125,6 +130,7 @@ void RunGameLoop(Game game)
 						(game.Board.Aggressor is null || move.PieceToMove == game.Board.Aggressor)) // If the move is valid and the piece to move is equal to the aggressor or there is no aggressor
 					{
 						game.PerformMove(move, trap); // Perform the move
+						currentPlayer.count--;
 					}
 					if(to == trap.currentTrapPosition){
 
@@ -141,6 +147,7 @@ void RunGameLoop(Game game)
 			if (captures.Count > 0)
 			{
 				game.PerformMove(captures[Random.Shared.Next(captures.Count)], trap); // Perform a random capture
+				currentPlayer.count--;
 			}
 			// If there are no captures and there are no pieces that can be promoted
 			else if (!game.Board.Pieces.Any(piece => piece.Color == game.Turn && !piece.Promoted))
@@ -148,14 +155,20 @@ void RunGameLoop(Game game)
 				var (a, b) = game.Board.GetClosestRivalPieces(game.Turn); // Get the closest rival pieces
 				Move? priorityMove = moves.FirstOrDefault(move => move.PieceToMove == a && Board.IsTowards(move, b)); // Get the priority move
 				game.PerformMove(priorityMove ?? moves[Random.Shared.Next(moves.Count)], trap); // Perform the priority move or a random move
+				currentPlayer.count--;
 			}
 			else
 			{
 				game.PerformMove(moves[Random.Shared.Next(moves.Count)], trap); // Perform a random move
+				currentPlayer.count--;
 			}
 		}
 	    // Render the game state
 		RenderGameState(game, playerMoved: currentPlayer, promptPressKey: true);
+		if(game.Winner is null && currentPlayer.count == 0){
+			Console.WriteLine("No more moves left, the game is a draw!");
+			return;
+		}
 		Console.ReadKey(true);
 	}
 }
@@ -217,10 +230,12 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 		game.Winner is not null ? w :
 		playerMoved is not null ? m :
 		t);
+	sb.AppendLine($"   {mc} count left: {currentPlayer.count}   ");
 	string p = "  Press any key to continue...";
 	string s = "                              ";
 	sb.AppendLine(promptPressKey ? p : s);
 	Console.Write(sb);
+
 
 	// Method to get the character at a position
 	char B(int x, int y) =>
