@@ -75,4 +75,12 @@ public class Game
 	// Get the count of the taken pieces
 	public int TakenCount(PieceColor colour) =>
 		PiecesPerColor - Board.Pieces.Count(piece => piece.Color == colour);
+
+	public void Undo(Piece lastPiece){
+		Board.Pieces.Remove(Board.Pieces.Last());
+		Board.Pieces.Add(lastPiece);
+		Turn = Turn is Black ? White : Black;
+	}
+
 }
+ 

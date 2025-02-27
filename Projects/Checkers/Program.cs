@@ -1,4 +1,12 @@
-﻿using System.Security.Cryptography;
+﻿/*
+For requirement A, I choose undo a move, have a extra turn, and traps.
+For requirement B, I choose the player has a move count
+For undo move, I create a method in the Game class to remove the last piece from the board and add the last piece back to the board. The player can press 'U' to undo the last move after the player moved.
+For extra turn, I create a boolean variable in the Player class to check if the player has an extra turn. If the player has an extra turn, the player can press the spacebar to get an extra turn(I will give them a extra move count).
+For traps, I create a class called Traps to generate a random trap position. If the player steps on the trap, the player's piece will be removed from the board.
+For the player move count, I create a variable in the Player class to store the player's move count. The player's move count will decrease by 1 after the player moved. If the player has no more moves left, the game will be a draw.
+*/
+using System.Security.Cryptography;
 
 Exception? exception = null; // Handle exceptions
 
@@ -57,7 +65,7 @@ Game ShowIntroScreenAndGetOption()
 	Console.WriteLine("  Moves are selected with the arrow keys. Use the [enter] button to select the");
 	Console.WriteLine("  from and to squares. Invalid moves are ignored.");
 	Console.WriteLine();
-	Console.WriteLine("   Steping on traps will cause this pieces to be removed.");
+	Console.WriteLine("   Steping on traps will cause this pieces to be removed. Press spacebar to get an extra turn.");
 	Console.WriteLine();
 	Console.WriteLine("  Press a number key to choose number of human players:");
 	Console.WriteLine("    [0] Black (computer) vs White (computer)");
@@ -89,6 +97,7 @@ void RunGameLoop(Game game)
 
 		// Get the current player based on the turn
 		Player currentPlayer = game.Players.First(player => player.Color == game.Turn); //If the player's color is equal to the game's turn, set the current player to that player
+		
 		// If the current player is a human player 
 		if (currentPlayer.IsHuman)
 		{
@@ -124,6 +133,7 @@ void RunGameLoop(Game game)
 				// If the from and to positions are valid
 				if (from is not null && to is not null)
 				{
+					currentPlayer.LastPieceMoved = game.Board[from.Value.X, from.Value.Y]; // Set the last piece moved to the from position
 					// Validate the move
 					Move? move = game.Board.ValidateMove(game.Turn, from.Value, to.Value); 
 					if (move is not null &&
@@ -132,10 +142,12 @@ void RunGameLoop(Game game)
 						game.PerformMove(move, trap); // Perform the move
 						currentPlayer.count--;
 					}
-					if(to == trap.currentTrapPosition){
 
-					}
 				}
+			}
+			// If the player press 'U' to undo the last move
+			if(Console.ReadKey(true).Key == ConsoleKey.U){
+				game.Undo(currentPlayer.LastPieceMoved);
 			}
 		}
 		// If the current player is a computer player
@@ -274,6 +286,13 @@ void RenderGameState(Game game, Player? playerMoved = null, (int X, int Y)? sele
 			case ConsoleKey.RightArrow: selection.X = Math.Min(7, selection.X + 1); break;
 			case ConsoleKey.Enter:      return selection;
 			case ConsoleKey.Escape:     return null;
+			case ConsoleKey.Spacebar: 
+			// if the player did not use the extra turn, and the player press spacebar, the player will get an extra turn count
+				if(currentPlayer.extraTurnUsed == false){
+					currentPlayer.extraTurnUsed = true;
+					currentPlayer.count++;
+				}
+			break;
 		}
-	}
+	}   
 }
