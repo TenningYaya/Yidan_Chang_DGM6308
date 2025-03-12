@@ -1,108 +1,247 @@
 ﻿using System;
 using System.Collections.Generic;
-List<Card> deck = new List<Card>();//build a new list to store all the cards
-List<Card> discardPile = new();//a new list to store all the discarded cards
-Card playerHand = new();//player’s card
-Card dealerHand = new();//dealer’s card
+using System.Linq;
 
+public enum Suit { Heart, Spade, Club, Diamond }
+public enum AbilityType { 
+    JokerKing, JokerQueen, 
+    HeartK, SpadeK, ClubK, DiamondK, 
+    HeartQ, SpadeQ, ClubQ, DiamondQ 
+}
 
-try{
-        foreach (Suit suit in Enum.GetValues<Suit>())
+public class PlayCard
+{
+    public Suit Suit { get; set; }
+    public int Value { get; set; }
+}
+
+public class AbilityCard
+{
+    public AbilityType Type { get; set; }
+}
+
+public class Player
+{
+    public List<PlayCard> PlayCards { get; } = new List<PlayCard>();
+    public AbilityCard Ability { get; set; }
+    public int Modifier { get; set; }
+}
+
+public class PlayDeck
+{
+    private List<PlayCard> cards = new List<PlayCard>();
+    private readonly Random random = new Random();
+
+    public PlayDeck() => Initialize();
+
+    private void Initialize()
     {
-        foreach (Value value in Enum.GetValues<Value>())
+        cards.Clear();
+        foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+            for (int value = 1; value <= 11; value++)
+                cards.Add(new PlayCard { Suit = suit, Value = value });
+        Shuffle();
+    }
+
+    public void Shuffle()
+    {
+        int n = cards.Count;
+        while (n > 1)
         {
-            deck.Add(new()
-            {
-                Suit = suit,
-                Value = value,
-            });
+            n--;
+            int k = random.Next(n + 1);
+            (cards[k], cards[n]) = (cards[n], cards[k]);
         }
-    }//add 52 cards with 4 different patterns combined with 13 numbers
-    Shuffle(deck);
-    while(deck.Count > 0){
-        start:
-        Console.Clear();
-        Console.WriteLine("Press Enter to draw a card(escape to quit):");
-        Console.WriteLine(deck.Count + "cards left in the deck");//render the hint
-        switch (Console.ReadKey(true).Key)
+    }
+
+    public PlayCard Draw()
+    {
+        if (cards.Count == 0) Initialize();
+        var card = cards[0];
+        cards.RemoveAt(0);
+        return card;
+    }
+
+    public bool IsEmpty() => cards.Count == 0;
+}
+
+public class AbilityDeck
+{
+    private List<AbilityCard> cards = new List<AbilityCard>();
+    private readonly Random random = new Random();
+
+    public AbilityDeck() => Initialize();
+
+    private void Initialize()
+    {
+        cards.Clear();
+        foreach (Suit suit in Enum.GetValues(typeof(Suit)))
         {
-            case ConsoleKey.Enter:
-                playerHand = deck[^1];//get the last variable in the list as player’s hand
-                deck.RemoveAt(deck.Count - 1);//remove it from the list
-                discardPile.Add(playerHand);//add it into the discard pile
-                Console.WriteLine("You draw " + playerHand.Suit + " " + playerHand.Value);//show the player’s hand
+            cards.Add(new AbilityCard { Type = (AbilityType)((int)suit * 2 + 2) });
+            cards.Add(new AbilityCard { Type = (AbilityType)((int)suit * 2 + 3) });
+        }
+        cards.Add(new AbilityCard { Type = AbilityType.JokerKing });
+        cards.Add(new AbilityCard { Type = AbilityType.JokerQueen });
+        Shuffle();
+    }
+
+    public void Shuffle()
+    {
+        int n = cards.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = random.Next(n + 1);
+            (cards[k], cards[n]) = (cards[n], cards[k]);
+        }
+    }
+
+    public AbilityCard Draw()
+    {
+        if (cards.Count == 0) Initialize();
+        var card = cards[0];
+        cards.RemoveAt(0);
+        return card;
+    }
+
+    public bool IsEmpty() => cards.Count == 0;
+}
+
+public class Game
+{
+    private readonly PlayDeck playDeck = new PlayDeck();
+    private readonly AbilityDeck abilityDeck = new AbilityDeck();
+    private readonly Player human = new Player();
+    private readonly Player computer = new Player();
+    private int humanScore;
+    private int computerScore;
+
+    public void Start()
+    {
+        InitializePlayers();
+        GameLoop();
+    }
+
+    private void InitializePlayers()
+    {
+        human.Ability = abilityDeck.Draw();
+        computer.Ability = abilityDeck.Draw();
+        human.PlayCards.Add(playDeck.Draw());
+        computer.PlayCards.Add(playDeck.Draw());
+    }
+
+    private void GameLoop()
+    {
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Press Escape to quit or any key to play...");
+            if (Console.ReadKey(true).Key == ConsoleKey.Escape) return;
+
+            PlayRound();
+            ApplySuitAbilities();
+            DisplayResults();
+            HandleRoundEnd();
+        }
+    }
+
+    private void PlayRound()
+    {
+        human.PlayCards.Add(playDeck.Draw());
+        computer.PlayCards.Add(playDeck.Draw());
+
+        HandleAbilities();
+    }
+
+    private void HandleAbilities()
+    {
+        if (human.Ability != null && PromptUseAbility())
+            UseAbility(human, computer);
+        
+        if (computer.Ability != null && new Random().Next(2) == 0)
+            UseAbility(computer, human);
+    }
+
+    private bool PromptUseAbility()
+    {
+        Console.Write("Use ability card? (Y/N): ");
+        return Console.ReadKey().Key == ConsoleKey.Y;
+    }
+
+    private void UseAbility(Player user, Player opponent)
+    {
+        switch (user.Ability.Type)
+        {
+            case AbilityType.JokerKing:
+                (user.PlayCards[0], opponent.PlayCards[0]) = (opponent.PlayCards[0], user.PlayCards[0]);
                 break;
-            case ConsoleKey.Escape:
-                return;
-            default:
-                Console.WriteLine("Press Enter only.");
-                goto start;
+            case AbilityType.JokerQueen:
+                if (opponent.PlayCards.Count > 1)
+                    opponent.PlayCards.RemoveAt(opponent.PlayCards.Count - 1);
+                break;
+            case AbilityType.HeartK: user.Modifier += 1; break;
+            case AbilityType.SpadeK: user.Modifier += 2; break;
+            case AbilityType.ClubK: user.Modifier += 3; break;
+            case AbilityType.DiamondK: user.Modifier += 4; break;
+            case AbilityType.HeartQ: user.Modifier -= 1; break;
+            case AbilityType.SpadeQ: user.Modifier -= 2; break;
+            case AbilityType.ClubQ: user.Modifier -= 3; break;
+            case AbilityType.DiamondQ: user.Modifier -= 4; break;
         }
-        Console.WriteLine("Dealer Draw a card:");//do the same for dealer
-                dealerHand = deck[^1];
-                deck.RemoveAt(deck.Count - 1);
-                Console.WriteLine("Dealer draw " + dealerHand.Suit +" " + dealerHand.Value);
-//compare hands for both player
-        if(playerHand.Value > dealerHand.Value){
-            Console.WriteLine("You win");
-        }
-        else if(playerHand.Value < dealerHand.Value){
-            Console.WriteLine("You lose");
-        }
-        else{
-            Console.WriteLine("Draw");
-        }
-        if(deck.Count == 0){//shuffle the card after the deck pile was run out
-            Shuffle(discardPile);
-            deck = discardPile;
-        }
-        Console.WriteLine("Press any key to Continue");
-        Console.ReadKey();
+        user.Ability = null;
     }
-void Shuffle(List<Card> cards)
-{//method to shuffle the card
-    for (int i = 0; i < cards.Count; i++)
+
+    private void ApplySuitAbilities()
     {
-        int swap = Random.Shared.Next(cards.Count);
-        (cards[i], cards[swap]) = (cards[swap], cards[i]);
+        ApplySuitEffect(human, computer);
+        ApplySuitEffect(computer, human);
+    }
+
+    private static void ApplySuitEffect(Player player, Player opponent)
+    {
+        switch (player.PlayCards[0].Suit)
+        {
+            case Suit.Heart:
+            case Suit.Spade:
+                opponent.Modifier--;
+                break;
+            case Suit.Club:
+                player.Modifier++;
+                break;
+            case Suit.Diamond:
+                player.Modifier += 2;
+                break;
+        }
+    }
+
+    private void DisplayResults()
+    {
+        Console.WriteLine("\nYour Cards:");
+        human.PlayCards.Skip(1).ToList().ForEach(c => Console.WriteLine($"{c.Value} of {c.Suit}"));
+        
+        Console.WriteLine("\nComputer's Cards:");
+        computer.PlayCards.Skip(1).ToList().ForEach(c => Console.WriteLine($"{c.Value} of {c.Suit}"));
+
+        int humanTotal = human.PlayCards.Sum(c => c.Value) + human.Modifier;
+        int computerTotal = computer.PlayCards.Sum(c => c.Value) + computer.Modifier;
+
+        Console.WriteLine($"\nYour Total: {humanTotal}");
+        Console.WriteLine($"Computer's Total: {computerTotal}");
+
+        if (humanTotal > computerTotal) humanScore++;
+        else if (computerTotal > humanTotal) computerScore++;
+        
+        Console.WriteLine($"\nScore: You {humanScore} - Computer {computerScore}");
+    }
+
+    private static void HandleRoundEnd()
+    {
+        Console.WriteLine("\nPress Enter to continue...");
+        while (Console.ReadKey(true).Key != ConsoleKey.Enter) { }
     }
 }
 
-
+class Program
+{
+    static void Main() => new Game().Start();
 }
-finally{
-    Console.WriteLine("Game End");
-}
-
-
-
-
-class Card {//a class of cards with 2 properties
-    public Suit Suit;
-    public Value Value;
-}
-enum Suit{//the card’s suit
-
-
-    Hearts,
-    Clubs,
-    Spades,
-    Diamonds,
-}
-enum Value
-{//the card’s value
-    Ace   = 14,
-    Two   = 02,
-    Three = 03,
-    Four  = 04,
-    Five  = 05,
-    Six   = 06,
-    Seven = 07,
-    Eight = 08,
-    Nine  = 09,
-    Ten   = 10,
-    Jack  = 11,
-    Queen = 12,
-    King  = 13,
-}
-
