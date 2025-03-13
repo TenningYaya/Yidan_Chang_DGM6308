@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 List<Card> deck = new List<Card>();//build a new list to store all the cards
 List<Card> discardPile = new();//a new list to store all the discarded cards
+List<Card> playerHand = new();//player’s card
+List<Card>  Hand = new();//dealer’s card
+List<Card> ability = new();//ability card
 Card playerHand = new();//player’s card
+Card player1ability = new();//player’s ability card
 Card dealerHand = new();//dealer’s card
-
+Card dealer1ability = new();//dealer’s ability card
+State state = State.Intro;
 
 try{
-        foreach (Suit suit in Enum.GetValues<Suit>())
-    {
-        foreach (Value value in Enum.GetValues<Value>())
-        {
-            deck.Add(new()
-            {
-                Suit = suit,
-                Value = value,
-            });
-        }
-    }//add 52 cards with 4 different patterns combined with 13 numbers
+
     Shuffle(deck);
     while(deck.Count > 0){
         start:
@@ -74,12 +69,85 @@ finally{
     Console.WriteLine("Game End");
 }
 
+void Render(){
+    Console.CursorVisible = false;
+	Console.Clear();
+	Console.WriteLine();
+	Console.WriteLine("  Card Fight");
+	Console.WriteLine();
+    if(state is State.Intro){
+        Console.WriteLine("  This is the War card game. It is played with 44 regular cards and 8");
+        Console.WriteLine("  ability cards. ");
+		Console.WriteLine();
+		Console.WriteLine("  Press [escape] to close the game at any time.");
+		Console.WriteLine();
+		Console.WriteLine("  Press [enter] to continue...");
+        return;
+    }
+    Console.WriteLine($"  Cards In Deck: {deck.Count}");
+	Console.WriteLine($"  Cards In Discard Pile: {discardPile.Count}");
+    Console.WriteLine($"  Ability Cards In Deck: {ability.Count}");
+    Console.WriteLine();
+}
 
+void Initialize(){
 
+    foreach (Suit suit in Enum.GetValues<Suit>())
+    {
+        foreach (Value value in Enum.GetValues<Value>())
+        {
+            deck.Add(new()
+            {
+                Suit = suit,
+                Value = value,
+            });
+        }
+    }//add 44 cards with 4 different patterns combined with 11 numbers
+
+    foreach (AbilitySuit suit in Enum.GetValues<AbilitySuit>())
+    {
+        foreach (AbilityValue value in Enum.GetValues<AbilityValue>())
+        {
+            if(suit is AbilitySuit.Red && value is AbilityValue.Joker){
+                ability.Add(new()
+                {
+                    AbilitySuit = suit,
+                    AbilityValue = value,
+                });
+            }
+            if((suit is AbilitySuit.Clubs || suit is AbilitySuit.Diamonds || suit is AbilitySuit.Hearts || suit is AbilitySuit.Spades) && (value is AbilityValue.Queen || value is AbilityValue.King)){
+                ability.Add(new()
+                {
+                    AbilitySuit = suit,
+                    AbilityValue = value,
+                });
+            }
+
+        }
+    }//add 8 ability cards with 2 different patterns combined with 4 numbers
+}
 
 class Card {//a class of cards with 2 properties
     public Suit Suit;
     public Value Value;
+}
+class Ability{//a class of ability cards with 2 properties
+    public Suit AbilitySuit;
+    public Value AbilityValue;
+}
+enum AbilitySuit{//the card’s suit
+    Hearts,
+    Clubs,
+    Spades,
+    Diamonds,
+    Red,
+    Black,
+}
+
+enum AbilityValue{
+    Queen = Queen,
+    King = King,
+    Joker = Joker,
 }
 enum Suit{//the card’s suit
 
@@ -91,7 +159,7 @@ enum Suit{//the card’s suit
 }
 enum Value
 {//the card’s value
-    Ace   = 14,
+    Ace   = 01,
     Two   = 02,
     Three = 03,
     Four  = 04,
@@ -102,7 +170,11 @@ enum Value
     Nine  = 09,
     Ten   = 10,
     Jack  = 11,
-    Queen = 12,
-    King  = 13,
 }
 
+enum State{
+    Intro,
+    Player1Turn,
+    Player2Turn,
+    End,
+}
